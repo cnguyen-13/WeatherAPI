@@ -1,0 +1,8 @@
+Error handling (eg. user times invalid city) DONE
+custom marker DONE
+When user hits "ENTER", the button should press too. DONE
+Comment code DONE
+Refactor DONE
+Metrics (Toggle Switch) & add metric/imperial symbols to information displayed. DONE
+Add README DONE
+Try BOOTSTRAP DONE

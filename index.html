@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <!-- Own CSS -->
+        <link rel="stylesheet" href="styles.css" />
+
+        <!-- Leaflet CSS -->
+        <link
+            rel="stylesheet"
+            href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+            integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+            crossorigin=""
+        />
+
+        <!-- Leaflet JS -->
+        <script
+            src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+            integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+            crossorigin=""
+        ></script>
+
+        <!-- Bootstrap CDN -->
+        <link
+            rel="stylesheet"
+            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+            integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+            crossorigin="anonymous"
+        ></script>
+        <title>Weather By City</title>
+    </head>
+
+    <body class="container-fluid">
+        <!-- Header -->
+        <header class="row row-cols-1">
+            <h1 class="col text-center mt-3">Weather Forecast Project</h1>
+            <p class="col lead text-center">
+                Type in the name of the City you want to see the weather for and
+                click the button.
+            </p>
+        </header>
+
+        <!-- User input section -->
+        <main class="row justify-content-between">
+            <section class="col-md-4">
+                <label for="city-input"><b>City:</b></label>
+                <input
+                    type="text"
+                    class="form-control"
+                    id="city-input"
+                    value="Houston"
+                    aria-describedby="city-input-help"
+                />
+                <small id="city-input-help"
+                    >Inputs: "city", "city, country" eg. (London), (Berlin,
+                    Germany).</small
+                >
+                <br /><br />
+
+                <label><b>Units:</b></label>
+                <div class="form-check" id="units">
+                    <input
+                        type="radio"
+                        class="form-check-input"
+                        id="imperial"
+                        name="unit"
+                        value="imperial"
+                        checked
+                    />
+                    <label class="form-check-label" for="imperial"
+                        >Imperial</label
+                    >
+                </div>
+
+                <div class="form-check">
+                    <input
+                        type="radio"
+                        class="form-check-input"
+                        id="metric"
+                        name="unit"
+                        value="metric"
+                    />
+                    <label class="form-check-label" for="metric">Metric</label>
+                </div>
+                <br />
+
+                <button class="btn btn-info mb-3" id="get-data">
+                    Get Weather Data!
+                </button>
+                <button class="btn btn-primary mb-3" id="set-options">
+                    Options
+                </button>
+                <section class="visibility col-12 mt-3" id="settings">
+                    <!-- Country and city Names-->
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option country-name"
+                            id="country"
+                            name="Country"
+                            value="country"
+                            checked
+                        />
+                        <label class="form-check-label" for="country"
+                            >Country</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option city-name"
+                            id="city-name"
+                            name="City Name"
+                            value="name"
+                            checked
+                        />
+                        <label class="form-check-label" for="city-name"
+                            >City name</label
+                        >
+                    </div>
+                    <!-- Longitude and Latitude -->
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option geo-location"
+                            id="latitude"
+                            name="Latitude"
+                            value="lat"
+                        />
+                        <label class="form-check-label" for="latitude"
+                            >Latitude</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option geo-location"
+                            id="longitude"
+                            name="Longitude"
+                            value="lon"
+                        />
+                        <label class="form-check-label" for="longitude"
+                            >Longitude</label
+                        >
+                    </div>
+                    <!-- Weather and Weather Descriptions-->
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option weather"
+                            id="weather"
+                            name="Weather"
+                            value="main"
+                            checked
+                        />
+                        <label class="form-check-label" for="weather"
+                            >Weather</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option weather"
+                            id="weather-description"
+                            name="Weather Description"
+                            value="description"
+                            checked
+                        />
+                        <label
+                            class="form-check-label"
+                            for="weather-description"
+                            >Weather description</label
+                        >
+                    </div>
+                    <!-- Temperatures -->
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option temperature"
+                            id="city-temp"
+                            name="City Temp"
+                            value="temp"
+                            checked
+                        />
+                        <label class="form-check-label" for="city-temp"
+                            >Temperature</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option temperature"
+                            id="city-temp-feels-like"
+                            name="City Temp Feels Like"
+                            value="feels_like"
+                        />
+                        <label
+                            class="form-check-label"
+                            for="city-temp-feels-like"
+                            >Temperature Feels Like</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option temperature"
+                            id="city-temp-min"
+                            name="City Temp-Min"
+                            value="temp_min"
+                        />
+                        <label class="form-check-label" for="city-temp-min"
+                            >Temperature Minimum</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option temperature"
+                            id="city-temp-max"
+                            name="City Temp Max"
+                            value="temp_max"
+                        />
+                        <label class="form-check-label" for="city-temp-max"
+                            >Temperature Maximum</label
+                        >
+                    </div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option temperature-humidity"
+                            id="City Humidity"
+                            name="City Humidity"
+                            value="humidity"
+                        />
+                        <label class="form-check-label" for="city-humidity"
+                            >Humidity</label
+                        >
+                    </div>
+
+                    <!-- Winds -->
+                    <div>
+                        <input
+                            type="checkbox"
+                            class="form-check-input setting-option wind-speed"
+                            id="city-wind-speed"
+                            name="City Wind Speed"
+                            value="speed"
+                        />
+                        <label class="form-check-label" for="city-wind-speed"
+                            >Wind Speed</label
+                        >
+                    </div>
+                </section>
+            </section>
+
+            <!-- Information Displays -->
+            <section class="col-md-6" id="info-section"></section>
+
+            <!-- Map for Leaflet JS -->
+            <div class="col-12" id="map"></div>
+        </main>
+        <script src="javascript/variables.js"></script>
+        <script src="javascript/map.js"></script>
+        <script src="javascript/newapp.js"></script>
+        <script src="javascript/eventlisteners.js"></script>
+    </body>
+</html>
