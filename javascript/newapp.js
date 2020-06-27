@@ -2,7 +2,7 @@
 async function getWeatherJSONData() {
     //Creating URL to fetch
     const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?q=';
-    const apiKey = '&APPID=d024ae907562938d86f1fd5d2f3d0fab';
+    const apiKey = '';
     const cityToGet = cityInput.value;
     const units = imperialInputUnit.checked ? '&units=imperial' : '&units=metric';
     const endpointUrl = baseUrl + cityToGet + apiKey + units;
